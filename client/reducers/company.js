@@ -1,14 +1,16 @@
-import { SHOW_COMPANIES } from '../actions/company';
+import * as ActionTypes from '../constants/constants';
 
-export default function company(state = {items: []}, action) {
+const initialState = { companies: [] };
+
+const companyReducer = (state = initialState, action) => {
   switch (action.type) {
-  case SHOW_COMPANIES: {
-    return Object.assign({}, state, {
-      items: action.posts
-    });
-  }
-  default: {
+  case ActionTypes.ADD_COMPANIES :
+    return {
+      companies: action.companies,
+    };
+  default:
     return state;
   }
-  }
-}
+};
+
+export default companyReducer;

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
-import rootReducer from '../reducers';
+import rootReducer from '../reducers/company';
 import DevTools from '../containers/DevTools';
 
 const finalCreateStore = compose(
@@ -18,8 +18,8 @@ export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
 
   if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers'))
+    module.hot.accept('../reducers/company', () =>
+      store.replaceReducer(require('../reducers/company'))
     );
   }
 

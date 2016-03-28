@@ -5,12 +5,12 @@ export function getCompanies(req, res) {
   Company.find({})
     .populate('children')
     .sort('-dateAdded')
-    .exec((err, posts) => {
+    .exec((err, companies) => {
       if (err) {
         return res.status(500).send(err);
       }
 
-      res.json({ posts });
+      res.json({ companies });
     });
 }
 

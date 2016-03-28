@@ -9,7 +9,7 @@ export default class Welcome extends React.Component {
   render() {
     return (
       <div>
-        <Helmet title="React-Redux"/>
+        <Helmet title="Eliftech"/>
           <section className={shared.section}>
             <h1>Welcome!</h1>
             <Link to="/company">

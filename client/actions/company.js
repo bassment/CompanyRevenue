@@ -1,16 +1,21 @@
-export const SHOW_COMPANIES = 'SHOW_COMPANIES';
+import * as ActionTypes from '../constants/constants';
 
-export function showCompanies(json) {
+const baseURL = process.env.BASE_URL || (`http://localhost:3000`);
+
+export function addPosts(companies) {
   return {
-    type: SHOW_COMPANIES,
-    companies: json.data.children.map(child => child.data)
+    type: ActionTypes.ADD_COMPANIES,
+    companies,
   };
 }
 
 export function fetchCompanies() {
-  return dispatch => {
-    return fetch('/api/companies')
-      .then(req => req.json())
-      .then(json => dispatch(showCompanies(json)));
+  return (dispatch) => {
+    return fetch(`${baseURL}/api/getCompanies`)
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((response) => dispatch(addPosts(response.companies)));
   };
 }
