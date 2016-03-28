@@ -1,4 +1,4 @@
-import shared from '../css/shared.css';
+import styles from '../css/Company.css';
 
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
@@ -25,9 +25,10 @@ class CompanyForm extends React.Component {
     return (
       <div className="add-company">
         <form onSubmit={this.addCompany}>
-          <input type="text" placeholder="Company Name" ref="name" />
-          <input type="text" placeholder="Company Earnings" ref="earnings" />
-          <button type="submit">Create Top Company</button>
+          <input className={styles.inputField} type="text" placeholder="Company Name" ref="name" />
+          <input className={styles.inputField}
+            type="text" placeholder="Company Earnings" ref="earnings" />
+          <button className={styles.addCompanyButton} type="submit">Add</button>
         </form>
       </div>
     );

@@ -1,3 +1,5 @@
+import styles from '../css/Company.css';
+
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/company';
@@ -23,11 +25,12 @@ class CompanyContainer extends Component {
 
   render() {
     return (
-      <div>
+      <section className={styles.container}>
         <Helmet title="Company"/>
+        <h2>Add Top Company:</h2>
         <CompanyForm addCompany={this.addCompany} />
         <CompanyListView companies={this.props.companies}/>
-      </div>
+      </section>
     );
   }
 }

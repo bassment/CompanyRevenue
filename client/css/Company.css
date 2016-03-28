@@ -1,0 +1,25 @@
+.inputField {
+  composes: field from 'basscss/css/basscss.css';
+  margin-left: 15px;
+}
+
+.addCompanyButton {
+  composes: btn btn-outline from 'basscss/css/basscss.css';
+  margin-left: 15px;
+}
+
+.companyTable {
+  composes: table-light overflow-hidden bg-white border rounded from 'basscss/css/basscss.css';
+}
+
+.tableHead {
+  composes: bg-darken-1 from 'basscss/css/basscss.css';
+}
+
+.deleteCompanyButton {
+  composes: btn btn-primary mb1 bg-red from 'basscss/css/basscss.css';
+}
+
+.container {
+  composes: container from 'basscss/css/basscss.css';
+}

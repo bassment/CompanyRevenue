@@ -1,6 +1,6 @@
 import * as ActionTypes from '../constants/constants';
 
-const initialState = { companies: [] };
+const initialState = { companies: [], edit: false };
 
 const companyReducer = (state = initialState, action) => {
   switch (action.type) {
