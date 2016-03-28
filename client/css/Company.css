@@ -19,6 +19,10 @@
 .deleteCompanyButton {
   composes: btn btn-primary mb1 bg-red from 'basscss/css/basscss.css';
 }
+.editCompanyButton {
+  composes: btn btn-primary mb1 bg-olive from 'basscss/css/basscss.css';
+  margin-left: 5px;
+}
 
 .container {
   composes: container from 'basscss/css/basscss.css';
