@@ -3,18 +3,29 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions/company';
 
 import CompanyListView from './CompanyListView';
+import CompanyForm from '../components/CompanyForm';
 import Helmet from 'react-helmet';
 
 class CompanyContainer extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.addCompany = this.addCompany.bind(this);
+  }
+
   componentDidMount() {
     this.props.dispatch(Actions.fetchCompanies());
+  }
+
+  addCompany(name, earnings) {
+    this.props.dispatch(Actions.addCompanyRequest({ name, earnings }));
   }
 
   render() {
     return (
       <div>
         <Helmet title="Company"/>
-        {console.log(this.props.companies)}
+        <CompanyForm addCompany={this.addCompany} />
         <CompanyListView companies={this.props.companies}/>
       </div>
     );

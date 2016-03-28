@@ -29,15 +29,15 @@ export function addCompany(req, res) {
       return res.status(500).send(err);
     }
 
-    Company.findByIdAndUpdate(
-      req.body.company.id,
-      { $push: { children: saved._id } },
-      { new: true, safe: true, upsert: true },
-      (err1) => {
-        if (err1) {
-          return res.status(500).send(err);
-        }
-      });
+    // Company.findByIdAndUpdate(
+    //   req.body.company.id,
+    //   { $push: { children: saved._id } },
+    //   { new: true, safe: true, upsert: true },
+    //   (err1) => {
+    //     if (err1) {
+    //       return res.status(500).send(err);
+    //     }
+    //   });
 
     return res.json({ company: saved });
   });

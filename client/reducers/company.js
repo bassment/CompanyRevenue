@@ -8,6 +8,17 @@ const companyReducer = (state = initialState, action) => {
     return {
       companies: action.companies,
     };
+  case ActionTypes.ADD_COMPANY :
+    return {
+      companies: [
+        {
+          name: action.name,
+          earnings: action.earnings,
+          _id: action._id,
+        },
+        ...state.companies,
+      ],
+    };
   default:
     return state;
   }
