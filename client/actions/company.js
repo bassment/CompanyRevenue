@@ -44,3 +44,24 @@ export function addCompanyRequest(company) {
     }).then((res) => res.json()).then(res => dispatch(addCompany(res.company)));
   };
 }
+
+export function deletePost(company) {
+  return {
+    type: ActionTypes.DELETE_COMPANY,
+    company,
+  };
+}
+
+export function deletePostRequest(company) {
+  return (dispatch) => {
+    fetch(`${baseURL}/api/deleteCompany`, {
+      method: 'post',
+      body: JSON.stringify({
+        companyId: company._id,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    }).then(() => dispatch(deletePost(company)));
+  };
+}

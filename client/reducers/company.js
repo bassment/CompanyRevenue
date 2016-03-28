@@ -19,6 +19,10 @@ const companyReducer = (state = initialState, action) => {
         ...state.companies,
       ],
     };
+  case ActionTypes.DELETE_COMPANY :
+    return {
+      companies: state.companies.filter((company) => company._id !== action.company._id),
+    };
   default:
     return state;
   }

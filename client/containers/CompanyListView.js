@@ -8,7 +8,12 @@ function CompanyListView(props) {
     <div className="listView">
       {
         props.companies.map((company, i) => (
-          <CompanyListItem company={company} key={i} />
+          <CompanyListItem company={company} key={i}
+            onDelete={function handleDelete() {
+              if (confirm('Do you want to delete this post')) { // eslint-disable-line
+                props.dispatch(Actions.deletePostRequest(company));
+              }
+            }} />
         ))
       }
     </div>

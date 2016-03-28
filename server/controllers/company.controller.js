@@ -43,7 +43,7 @@ export function addCompany(req, res) {
   });
 }
 
-export function deletePost(req, res) {
+export function deleteCompany(req, res) {
   const companyId = req.body.companyId;
   Company.findById(companyId).exec((err, company) => {
     if (err) {

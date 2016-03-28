@@ -10,14 +10,14 @@ function CompanyListItem(props) {
         {props.company.name}
       </h3>
       <p className="company-earnings">{props.company.earnings}</p>
+      <button onClick={props.onDelete}>Delete Company</button>
       <hr className="divider"/>
       { props.company.children ?
         props.company.children.map((child, i) => {
           return (
             <div key={i} className="info">
               <p>{child.name}</p>
-              <p>{child.content}</p>
-              <p>{child.title}</p>
+              <p>{child.earnings}</p>
               <hr className="divider"/>
             </div>
           );
@@ -34,6 +34,7 @@ CompanyListItem.propTypes = {
     earnings: PropTypes.number.isRequired,
     children: this,
   }).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default CompanyListItem;

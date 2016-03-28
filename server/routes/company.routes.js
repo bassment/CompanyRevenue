@@ -9,6 +9,6 @@ router.route('/getCompanies').get(CompanyController.getCompanies);
 router.route('/addCompany').post(CompanyController.addCompany);
 
 // Delete a Company
-// router.route('/deleteCompany').post(CompanyController.deleteCompany);
+router.route('/deleteCompany').post(CompanyController.deleteCompany);
 
 export default router;
