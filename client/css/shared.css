@@ -1,0 +1,20 @@
+.verticalCenter {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.section {
+  composes: verticalCenter;
+  text-align: center;
+}
+
+.homeButton {
+  composes: btn btn-primary from 'basscss/css/basscss.css';
+  display: block;
+  margin: 10px auto;
+  background-color: blue;
+}
