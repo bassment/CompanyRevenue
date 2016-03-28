@@ -1,16 +1,31 @@
-/* eslint strict: 0, no-console: 0 */
-'use strict';
-
-const path = require('path');
-const express = require('express');
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
+import path from 'path';
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from './webpack.config.js';
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
+
+import companies from './server/routes/company.routes';
+import dummyData from './server/dummyData';
+
+mongoose.connect(process.env.MONGO_URL, (error) => {
+  if (error) {
+    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+    throw error;
+  }
+
+  // feed some dummy data in DB.
+  dummyData();
+});
+
+app.use(bodyParser.json());
+app.use('/api', companies);
 
 if (isDeveloping) {
   const compiler = webpack(config);
@@ -23,8 +38,8 @@ if (isDeveloping) {
       timings: true,
       chunks: false,
       chunkModules: false,
-      modules: false
-    }
+      modules: false,
+    },
   });
 
   app.use(middleware);
@@ -44,7 +59,8 @@ if (isDeveloping) {
 
 app.listen(port, function onStart(err) {
   if (err) {
-    console.log(err);
+    console.log(err); // eslint-disable-line no-console
   }
-  console.info('==> 🌎 Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);
+
+  console.info('==> 🌎 Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port); // eslint-disable-line no-console
 });
