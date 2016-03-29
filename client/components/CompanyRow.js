@@ -10,6 +10,16 @@ class CompanyRow extends React.Component {
   }
 
   render() {
+    const calculateTotal = () => {
+      if (this.props.company.children.length !== 0) {
+        return this.props.company.children.reduce(
+          (sum, child) => sum + child.earnings,
+          this.props.company.earnings);
+      }
+
+      return this.props.company.earnings;
+    };
+
     let children;
     if (this.props.company.children.length !== 0) {
       children = this.props.company.children.map(child => (
@@ -56,7 +66,7 @@ class CompanyRow extends React.Component {
               null
             }
           </td>
-          <td><span className={styles.total}>{this.props.company.earnings} $</span></td>
+          <td><span className={styles.total}>{calculateTotal()} $</span></td>
         </tr>
         {
           this.props.add ?

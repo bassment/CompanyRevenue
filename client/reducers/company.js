@@ -17,6 +17,7 @@ const companyReducer = (state = initialState, action) => {
           name: action.name,
           earnings: action.earnings,
           _id: action._id,
+          children: action.children,
         },
         ...state.companies,
       ],

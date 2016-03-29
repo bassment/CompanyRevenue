@@ -25,6 +25,7 @@ export function addCompany(company) {
     _id: company._id,
     name: company.name,
     earnings: company.earnings,
+    children: [],
   };
 }
 
