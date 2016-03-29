@@ -14,6 +14,7 @@ class CompanyListItem extends React.Component {
     };
 
     this.updateCompany = this.updateCompany.bind(this);
+    this.addChildCompany = this.addChildCompany.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleToggleChildRow = this.handleToggleChildRow.bind(this);
   }

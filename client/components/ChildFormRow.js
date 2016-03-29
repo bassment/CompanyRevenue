@@ -3,6 +3,12 @@ import styles from '../css/Company.css';
 import React, { PropTypes } from 'react';
 
 class CompanyRow extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.addChildCompany = this.addChildCompany.bind(this);
+  }
+
   addChildCompany(e) {
     e.preventDefault();
 
