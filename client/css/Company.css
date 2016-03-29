@@ -1,3 +1,7 @@
+.container {
+  composes: container from 'basscss/css/basscss.css';
+}
+
 .inputField {
   composes: field from 'basscss/css/basscss.css';
   margin-left: 15px;
@@ -19,11 +23,17 @@
 .deleteCompanyButton {
   composes: btn btn-primary mb1 bg-red from 'basscss/css/basscss.css';
 }
+
 .editCompanyButton {
   composes: btn btn-primary mb1 bg-olive from 'basscss/css/basscss.css';
   margin-left: 5px;
 }
 
-.container {
-  composes: container from 'basscss/css/basscss.css';
+.addChildButton {
+  composes: btn btn-outline mb1 from 'basscss/css/basscss.css';
+  margin-left: 5px;
+}
+
+.childFormRow {
+  height: 80px;
 }

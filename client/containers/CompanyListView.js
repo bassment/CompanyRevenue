@@ -33,9 +33,7 @@ function CompanyListView(props) {
               <th>Total</th>
             </tr>
           </thead>
-          <tbody>
-            { companies }
-          </tbody>
+          { companies }
         </table>
     </div>
   );
