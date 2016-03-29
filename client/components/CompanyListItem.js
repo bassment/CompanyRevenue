@@ -59,7 +59,8 @@ class CompanyListItem extends React.Component {
         onDelete={this.props.onDelete}
         onToggle={this.handleToggle}
         onChildToggle={this.handleToggleChildRow}
-        onChildAdd={this.addChildCompany} />;
+        onChildAdd={this.addChildCompany}
+        onChildDelete={this.props.onChildDelete} />;
   }
 }
 
@@ -71,6 +72,7 @@ CompanyListItem.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onChildAdd: PropTypes.func.isRequired,
+  onChildDelete: PropTypes.func.isRequired,
 };
 
 export default CompanyListItem;

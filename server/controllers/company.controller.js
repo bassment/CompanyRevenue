@@ -66,6 +66,20 @@ export function deleteCompany(req, res) {
   });
 }
 
+export function deleteChildCompany(req, res) {
+  const childId = req.body.childId;
+
+  Child.findById(childId).exec((err, child) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    child.remove(() => {
+      res.status(200).end();
+    });
+  });
+}
+
 export function addChildCompany(req, res) {
   const companyId = req.body.companyId;
   const name = req.body.name;

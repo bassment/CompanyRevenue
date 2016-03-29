@@ -21,6 +21,12 @@ function CompanyListView(props) {
         }
       }}
 
+      onChildDelete={function handleChildDelete(child) {
+        if (confirm('Do you want to delete this post')) { // eslint-disable-line
+          props.dispatch(Actions.deleteChildCompanyRequest(child));
+        }
+      }}
+
       onChildAdd={function handleChildAdd(name, earnings) {
         props.dispatch(Actions.addChildCompanyRequest(company, { name, earnings }));
       }} />

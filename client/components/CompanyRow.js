@@ -1,13 +1,14 @@
 import styles from '../css/Company.css';
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import * as Actions from '../actions/company';
 
 import ChildFormRow from './ChildFormRow';
-import CompanyListItem from './CompanyListItem';
 
 class CompanyRow extends React.Component {
+  deleteChildCompany(child) {
+    this.props.onChildDelete(child);
+  }
+
   render() {
     let children;
     if (this.props.company.children.length !== 0) {
@@ -20,7 +21,7 @@ class CompanyRow extends React.Component {
           <td>{child.earnings} $</td>
           <td>
             <button className={styles.deleteChildButton}
-              onClick={this.props.onDelete}>
+              onClick={this.deleteChildCompany.bind(this, child)}>
               Delete
             </button>
           </td>
@@ -81,7 +82,7 @@ CompanyRow.propTypes = {
   onToggle: PropTypes.func.isRequired,
   onChildToggle: PropTypes.func.isRequired,
   onChildAdd: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  onChildDelete: PropTypes.func.isRequired,
 };
 
-export default connect()(CompanyRow);
+export default CompanyRow;

@@ -89,6 +89,27 @@ export function deleteCompanyRequest(company) {
   };
 }
 
+export function deleteChildCompany(child) {
+  return {
+    type: ActionTypes.DELETE_CHILD_COMPANY,
+    child,
+  };
+}
+
+export function deleteChildCompanyRequest(child) {
+  return (dispatch) => {
+    fetch(`/api/deleteChildCompany`, {
+      method: 'post',
+      body: JSON.stringify({
+        childId: child._id,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    }).then(() => dispatch(deleteChildCompany(child)));
+  };
+}
+
 export function addChildCompany(child, parentId) {
   return {
     type: ActionTypes.ADD_CHILD_COMPANY,

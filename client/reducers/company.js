@@ -38,6 +38,24 @@ const companyReducer = (state = initialState, action) => {
     return {
       companies: state.companies.filter((company) => company._id !== action.company._id),
     };
+  case ActionTypes.DELETE_CHILD_COMPANY :
+    return Object.assign({}, state, {
+      companies: state.companies.map((company) => {
+        const withoutRemovedChild = company.children.filter((child) => {
+          return child._id !== action.child._id;
+        });
+
+        if (withoutRemovedChild !== company.children.length) {
+          return Object.assign({}, company, {
+            children: [
+              ...withoutRemovedChild,
+            ],
+          });
+        }
+
+        return company;
+      }),
+    });
   case ActionTypes.ADD_CHILD_COMPANY :
     return Object.assign({}, state, {
       companies: state.companies.map((company) => {
