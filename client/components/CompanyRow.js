@@ -1,56 +1,87 @@
 import styles from '../css/Company.css';
 
 import React, { PropTypes } from 'react';
-import ChildFormRow from './ChildFormRow';
+import { connect } from 'react-redux';
+import * as Actions from '../actions/company';
 
-function CompanyRow(props) {
-  return (
-    <thead>
-      <tr>
-        <td>{props.company.name}</td>
-        <td>{props.company.earnings} $</td>
-        <td>
-          { !props.add ?
-            <span>
-              <button className={styles.deleteCompanyButton}
-                onClick={props.onDelete}>
-                Delete
-              </button>
-              <button className={styles.editCompanyButton}
-                onClick={props.onToggle}>
-                Edit
-              </button>
-              <button className={styles.addChildButton}
-                onClick={props.onChildToggle}>
-                +
-              </button>
-            </span> :
-            null
-          }
-        </td>
-        <td>{props.company.earnings} $</td>
-      </tr>
-      {
-        props.add ?
-        <ChildFormRow
-          onChildToggle={props.onChildToggle}
-          onChildAdd={props.onChildAdd} /> :
-        null
-      }
-    </thead>
-  );
+import ChildFormRow from './ChildFormRow';
+import CompanyListItem from './CompanyListItem';
+
+class CompanyRow extends React.Component {
+  render() {
+    let children;
+    if (this.props.company.children.length !== 0) {
+      children = this.props.company.children.map(child => (
+        <tr key={child._id}>
+          <td>
+            <span className={styles.deepLevel}>Child of {this.props.company.name}: </span>
+              {child.name}
+           </td>
+          <td>{child.earnings} $</td>
+          <td>
+            <button className={styles.deleteChildButton}
+              onClick={this.props.onDelete}>
+              Delete
+            </button>
+          </td>
+          <td></td>
+        </tr>
+      ));
+    } else {
+      children = null;
+    }
+
+    return (
+      <thead>
+        <tr>
+          <td><span className={styles.parentCompanyLabel}>{this.props.company.name}</span></td>
+          <td>{this.props.company.earnings} $</td>
+          <td>
+            { !this.props.add ?
+              <span>
+                <button className={styles.deleteCompanyButton}
+                  onClick={this.props.onDelete}>
+                  Delete
+                </button>
+                <button className={styles.editCompanyButton}
+                  onClick={this.props.onToggle}>
+                  Edit
+                </button>
+                <button className={styles.addChildButton}
+                  onClick={this.props.onChildToggle}>
+                  +
+                </button>
+              </span> :
+              null
+            }
+          </td>
+          <td><span className={styles.total}>{this.props.company.earnings} $</span></td>
+        </tr>
+        {
+          this.props.add ?
+          <ChildFormRow
+            onChildToggle={this.props.onChildToggle}
+            onChildAdd={this.props.onChildAdd} /> :
+          null
+        }
+        { children }
+      </thead>
+    );
+  }
 }
 
 CompanyRow.propTypes = {
   company: PropTypes.shape({
     name: PropTypes.string.isRequired,
     earnings: PropTypes.number.isRequired,
+    children: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   add: PropTypes.bool,
   onDelete: PropTypes.func.isRequired,
   onToggle: PropTypes.func.isRequired,
   onChildToggle: PropTypes.func.isRequired,
   onChildAdd: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default CompanyRow;
+export default connect()(CompanyRow);

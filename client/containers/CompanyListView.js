@@ -1,15 +1,16 @@
 import styles from '../css/Company.css';
 
 import React, { PropTypes } from 'react';
-import CompanyListItem from '../components/CompanyListItem';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/company';
 
+import CompanyListItem from '../components/CompanyListItem';
+
 function CompanyListView(props) {
-  const companies = props.companies.map((company, i) => (
+  const companies = props.companies.map(company => (
     <CompanyListItem
       company={company}
-      key={i}
+      key={company._id}
       onUpdate={function handleUpdate(name, earnings) {
         props.dispatch(Actions.updateCompanyRequest(company, { name, earnings }));
       }}

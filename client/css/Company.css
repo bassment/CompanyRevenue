@@ -13,7 +13,8 @@
 }
 
 .companyTable {
-  composes: table-light overflow-hidden bg-white border rounded from 'basscss/css/basscss.css';
+  composes: overflow-hidden bg-white from 'basscss/css/basscss.css';
+  margin-bottom: 40px;
 }
 
 .tableHead {
@@ -36,4 +37,21 @@
 
 .childFormRow {
   height: 80px;
+}
+
+.deepLevel {
+  color: red;
+}
+
+.parentCompanyLabel {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.total {
+  font-weight: bold;
+}
+
+.deleteChildButton {
+  composes: btn mb1 from 'basscss/css/basscss.css';
 }

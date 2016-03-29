@@ -5,8 +5,8 @@ import CompanyFormRow from './CompanyFormRow';
 import CompanyRow from './CompanyRow';
 
 class CompanyListItem extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       edit: false,

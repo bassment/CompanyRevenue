@@ -4,7 +4,11 @@
   h1 {
     font-weight: lighter;
   }
-  
+
   a:hover {
     text-decoration: none;
+  }
+
+  td {
+    border-bottom: 2px solid black;
   }
