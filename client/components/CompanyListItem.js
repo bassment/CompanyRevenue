@@ -1,7 +1,8 @@
 import styles from '../css/Company.css';
 
 import React, {PropTypes} from 'react';
-import { Link } from 'react-router';
+import CompanyFormRow from './CompanyFormRow';
+import CompanyRow from './CompanyRow';
 
 class CompanyListItem extends React.Component {
   constructor(props, context) {
@@ -13,7 +14,6 @@ class CompanyListItem extends React.Component {
     };
 
     this.updateCompany = this.updateCompany.bind(this);
-    this.addChildCompany = this.addChildCompany.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleToggleChildRow = this.handleToggleChildRow.bind(this);
   }
@@ -32,123 +32,33 @@ class CompanyListItem extends React.Component {
     });
   }
 
-  updateCompany(e) {
-    e.preventDefault();
-
-    const nameRef = this.refs.name;
-    const earningsRef = this.refs.earnings;
-    if (nameRef.value && earningsRef.value) {
-      this.props.onUpdate(nameRef.value, Number(earningsRef.value));
-      this.setState({
-        edit: !this.state.edit,
-      });
-    }
+  updateCompany(name, earnings) {
+    this.props.onUpdate(name, earnings);
+    this.setState({
+      edit: !this.state.edit,
+    });
   }
 
-  addChildCompany(e) {
-    e.preventDefault();
-
-    const nameRef = this.refs.childName;
-    const earningsRef = this.refs.childEarnings;
-
-    if (nameRef.value && earningsRef.value) {
-      this.props.onChildAdd(nameRef.value, Number(earningsRef.value));
-      nameRef.value = earningsRef.value = '';
-      this.setState({
-        add: !this.state.add,
-      });
-    }
+  addChildCompany(name, earnings) {
+    this.props.onChildAdd(name, earnings);
+    this.setState({
+      add: !this.state.add,
+    });
   }
 
   render() {
-    const childFormRow = (
-      <tr className={styles.childFormRow}>
-        <td>
-          <input
-            type="text"
-            ref="childName"
-            placeholder="Child Name" />
-        </td>
-        <td>
-          <input
-            type="text"
-            ref="childEarnings"
-            placeholder="Child Earnings" />
-        </td>
-        <td>
-          <button className={styles.deleteCompanyButton}
-            onClick={this.handleToggleChildRow}>
-            Cancel
-          </button>
-          <button className={styles.editCompanyButton}
-            onClick={this.addChildCompany}>
-            Save
-          </button>
-        </td>
-        <td></td>
-      </tr>
-    );
-
-    const companyRow = (
-      <thead>
-        <tr>
-          <td>{this.props.company.name}</td>
-          <td>{this.props.company.earnings} $</td>
-          <td>
-            { !this.state.add ?
-              <span>
-                <button className={styles.deleteCompanyButton}
-                  onClick={this.props.onDelete}>
-                  Delete
-                </button>
-                <button className={styles.editCompanyButton}
-                  onClick={this.handleToggle}>
-                  Edit
-                </button>
-                <button className={styles.addChildButton}
-                  onClick={this.handleToggleChildRow}>
-                  +
-                </button>
-              </span> :
-              null
-            }
-          </td>
-          <td>{this.props.company.earnings} $</td>
-        </tr>
-        { this.state.add ? childFormRow : null }
-      </thead>
-    );
-
-    const companyFormRow = (
-      <tbody>
-        <tr>
-          <td>
-            <input type="text"
-              defaultValue={this.props.company.name}
-              ref="name" />
-          </td>
-          <td>
-            <input
-              type="text"
-              defaultValue={this.props.company.earnings}
-              ref="earnings" />
-          </td>
-          <td>
-            <button className={styles.deleteCompanyButton}
-              onClick={this.handleToggle}>
-              Cancel
-            </button>
-            <button className={styles.editCompanyButton}
-              onClick={this.updateCompany}>
-              Save
-            </button>
-          </td>
-          <td></td>
-        </tr>
-      </tbody>
-    );
-
-    return this.state.edit ? companyFormRow : companyRow;
+    return this.state.edit ?
+      <CompanyFormRow
+        company={this.props.company}
+        onToggle={this.handleToggle}
+        onUpdate={this.updateCompany} /> :
+      <CompanyRow
+        company={this.props.company}
+        add={this.state.add}
+        onDelete={this.props.onDelete}
+        onToggle={this.handleToggle}
+        onChildToggle={this.handleToggleChildRow}
+        onChildAdd={this.addChildCompany} />;
   }
 }
 
