@@ -1,6 +1,6 @@
 import * as ActionTypes from '../constants/constants';
 
-const baseURL = process.env.BASE_URL || (`http://localhost:3000`);
+// const baseURL = process.env.BASE_URL || (`http://localhost:3000`);
 
 export function addCompanies(companies) {
   return {
@@ -11,7 +11,7 @@ export function addCompanies(companies) {
 
 export function fetchCompanies() {
   return (dispatch) => {
-    return fetch(`${baseURL}/api/getCompanies`)
+    return fetch(`/api/getCompanies`)
       .then((response) => {
         return response.json();
       })
@@ -30,7 +30,7 @@ export function addCompany(company) {
 
 export function addCompanyRequest(company) {
   return (dispatch) => {
-    fetch(`${baseURL}/api/addCompany`, {
+    fetch(`/api/addCompany`, {
       method: 'post',
       body: JSON.stringify({
         company: {
@@ -54,7 +54,7 @@ export function updateCompany(company) {
 
 export function updateCompanyRequest(company, fields) {
   return (dispatch) => {
-    fetch(`${baseURL}/api/updateCompany`, {
+    fetch(`/api/updateCompany`, {
       method: 'post',
       body: JSON.stringify({
         companyId: company._id,
@@ -77,7 +77,7 @@ export function deleteCompany(company) {
 
 export function deleteCompanyRequest(company) {
   return (dispatch) => {
-    fetch(`${baseURL}/api/deleteCompany`, {
+    fetch(`/api/deleteCompany`, {
       method: 'post',
       body: JSON.stringify({
         companyId: company._id,
