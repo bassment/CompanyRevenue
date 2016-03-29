@@ -14,4 +14,7 @@ router.route('/updateCompany').post(CompanyController.updateCompany);
 // Delete a Company
 router.route('/deleteCompany').post(CompanyController.deleteCompany);
 
+// Add child Company
+router.route('/addChildCompany').post(CompanyController.addChildCompany);
+
 export default router;

@@ -13,6 +13,7 @@ class CompanyListItem extends React.Component {
     };
 
     this.updateCompany = this.updateCompany.bind(this);
+    this.addChildCompany = this.addChildCompany.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleToggleChildRow = this.handleToggleChildRow.bind(this);
   }
@@ -44,17 +45,34 @@ class CompanyListItem extends React.Component {
     }
   }
 
+  addChildCompany(e) {
+    e.preventDefault();
+
+    const nameRef = this.refs.childName;
+    const earningsRef = this.refs.childEarnings;
+
+    if (nameRef.value && earningsRef.value) {
+      this.props.onChildAdd(nameRef.value, Number(earningsRef.value));
+      nameRef.value = earningsRef.value = '';
+      this.setState({
+        add: !this.state.add,
+      });
+    }
+  }
+
   render() {
     const childFormRow = (
       <tr className={styles.childFormRow}>
         <td>
           <input
             type="text"
+            ref="childName"
             placeholder="Child Name" />
         </td>
         <td>
           <input
             type="text"
+            ref="childEarnings"
             placeholder="Child Earnings" />
         </td>
         <td>
@@ -62,7 +80,8 @@ class CompanyListItem extends React.Component {
             onClick={this.handleToggleChildRow}>
             Cancel
           </button>
-          <button className={styles.editCompanyButton}>
+          <button className={styles.editCompanyButton}
+            onClick={this.addChildCompany}>
             Save
           </button>
         </td>
@@ -137,10 +156,10 @@ CompanyListItem.propTypes = {
   company: PropTypes.shape({
     name: PropTypes.string.isRequired,
     earnings: PropTypes.number.isRequired,
-    children: this,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
+  onChildAdd: PropTypes.func.isRequired,
 };
 
 export default CompanyListItem;

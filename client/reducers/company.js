@@ -1,3 +1,5 @@
+import update from 'react-addons-update';
+
 import * as ActionTypes from '../constants/constants';
 
 const initialState = { companies: [] };
@@ -36,6 +38,21 @@ const companyReducer = (state = initialState, action) => {
     return {
       companies: state.companies.filter((company) => company._id !== action.company._id),
     };
+  case ActionTypes.ADD_CHILD_COMPANY :
+    return Object.assign({}, state, {
+      companies: state.companies.map((company) => {
+        if (company._id === action.parentId) {
+          return Object.assign({}, company, {
+            children: [
+              action.child,
+              ...company.children,
+            ],
+          });
+        }
+
+        return company;
+      }),
+    });
   default:
     return state;
   }

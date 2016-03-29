@@ -22,9 +22,9 @@ export function fetchCompanies() {
 export function addCompany(company) {
   return {
     type: ActionTypes.ADD_COMPANY,
+    _id: company._id,
     name: company.name,
     earnings: company.earnings,
-    _id: company._id,
   };
 }
 
@@ -86,5 +86,29 @@ export function deleteCompanyRequest(company) {
         'Content-Type': 'application/json',
       }),
     }).then(() => dispatch(deleteCompany(company)));
+  };
+}
+
+export function addChildCompany(child, parentId) {
+  return {
+    type: ActionTypes.ADD_CHILD_COMPANY,
+    child,
+    parentId,
+  };
+}
+
+export function addChildCompanyRequest(company, fields) {
+  return (dispatch) => {
+    fetch(`/api/addChildCompany`, {
+      method: 'post',
+      body: JSON.stringify({
+        companyId: company._id,
+        name: fields.name,
+        earnings: fields.earnings,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    }).then((res) => res.json()).then(res => dispatch(addChildCompany(res.child, res.parentId)));
   };
 }

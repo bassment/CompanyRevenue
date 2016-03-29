@@ -1,4 +1,5 @@
 import Company from '../models/company';
+import Child from '../models/child';
 import sanitizeHtml from 'sanitize-html';
 
 export function getCompanies(req, res) {
@@ -29,24 +30,14 @@ export function addCompany(req, res) {
       return res.status(500).send(err);
     }
 
-    // Company.findByIdAndUpdate(
-    //   req.body.company.id,
-    //   { $push: { children: saved._id } },
-    //   { new: true, safe: true, upsert: true },
-    //   (err1) => {
-    //     if (err1) {
-    //       return res.status(500).send(err);
-    //     }
-    //   });
-
     return res.json({ company: saved });
   });
 }
 
 export function updateCompany(req, res) {
   const companyId = req.body.companyId;
-  const name = req.body.name;
-  const earnings = req.body.earnings;
+  const name = sanitizeHtml(req.body.name);
+  const earnings = sanitizeHtml(req.body.earnings);
 
   Company.findByIdAndUpdate(
     companyId,
@@ -72,5 +63,38 @@ export function deleteCompany(req, res) {
     company.remove(() => {
       res.status(200).end();
     });
+  });
+}
+
+export function addChildCompany(req, res) {
+  const companyId = req.body.companyId;
+  const name = req.body.name;
+  const earnings = req.body.earnings;
+
+  if (!req.body.name || !req.body.earnings) {
+    return res.status(403).end();
+  }
+
+  const newChild = new Child({ name, earnings });
+
+  newChild.name = sanitizeHtml(newChild.name);
+  newChild.earnings = sanitizeHtml(newChild.earnings);
+
+  newChild.save((err, saved) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    Company.findByIdAndUpdate(
+      companyId,
+      { $push: { children: saved._id } },
+      { new: true, safe: true, upsert: true },
+      (err1) => {
+        if (err1) {
+          return res.status(500).send(err);
+        }
+      });
+
+    return res.json({ child: saved, parentId: companyId });
   });
 }

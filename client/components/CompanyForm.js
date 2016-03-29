@@ -7,6 +7,7 @@ import * as Actions from '../actions/company';
 class CompanyForm extends React.Component {
   constructor(props, context) {
     super(props, context);
+
     this.addCompany = this.addCompany.bind(this);
   }
 
@@ -25,7 +26,8 @@ class CompanyForm extends React.Component {
     return (
       <div className="add-company">
         <form onSubmit={this.addCompany}>
-          <input className={styles.inputField} type="text" placeholder="Company Name" ref="name" />
+          <input className={styles.inputField}
+            type="text" placeholder="Company Name" ref="name" />
           <input className={styles.inputField}
             type="text" placeholder="Company Earnings" ref="earnings" />
           <button className={styles.addCompanyButton} type="submit">Add</button>
