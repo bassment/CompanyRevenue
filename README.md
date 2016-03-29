@@ -7,7 +7,8 @@ _Hi! For this project I've used:_ :
 
 **MongoLab and Css-Modules**
 
-Basic CRUD operations SPA application with storing data in a database. 
+Basic CRUD operations SPA application with storing data in a database.
+I'm also using DigitalOcean to host my project - [Link](http://pixelant.space/)
 
 ## Setup
 
