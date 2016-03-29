@@ -12,6 +12,7 @@ class CompanyListItem extends React.Component {
     };
 
     this.handleToggle = this.handleToggle.bind(this);
+    this.updateCompany = this.updateCompany.bind(this);
   }
 
   handleToggle(e) {
@@ -19,6 +20,19 @@ class CompanyListItem extends React.Component {
     this.setState({
       edit: !this.state.edit,
     });
+  }
+
+  updateCompany(e) {
+    e.preventDefault();
+
+    const nameRef = this.refs.name;
+    const earningsRef = this.refs.earnings;
+    if (nameRef.value && earningsRef.value) {
+      this.props.onUpdate(nameRef.value, Number(earningsRef.value));
+      this.setState({
+        edit: !this.state.edit,
+      });
+    }
   }
 
   render() {
@@ -40,24 +54,33 @@ class CompanyListItem extends React.Component {
       </tr>
     );
 
-    const companyForm = (
+    const companyFormRow = (
       <tr>
         <td>
-          <input type="text" defaultValue={this.props.company.name} ref="name" />
+          <input type="text"
+            defaultValue={this.props.company.name}
+            ref="name" />
         </td>
         <td>
-          <input type="text" defaultValue={this.props.company.earnings} ref="earnings" />
+          <input
+            type="text"
+            defaultValue={this.props.company.earnings}
+            ref="earnings" />
         </td>
         <td>
           <button className={styles.deleteCompanyButton}
             onClick={this.handleToggle}>
             Cancel
           </button>
+          <button className={styles.editCompanyButton}
+            onClick={this.updateCompany}>
+            Save
+          </button>
         </td>
       </tr>
     );
 
-    return this.state.edit ? companyForm : companyRow;
+    return this.state.edit ? companyFormRow : companyRow;
   }
 }
 
@@ -68,6 +91,7 @@ CompanyListItem.propTypes = {
     children: this,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default CompanyListItem;

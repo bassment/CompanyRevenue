@@ -1,6 +1,6 @@
 import * as ActionTypes from '../constants/constants';
 
-const initialState = { companies: [], edit: false };
+const initialState = { companies: [] };
 
 const companyReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -19,6 +19,19 @@ const companyReducer = (state = initialState, action) => {
         ...state.companies,
       ],
     };
+  case ActionTypes.UPDATE_COMPANY :
+    return Object.assign({}, state, {
+      companies: state.companies.map((company) => {
+        if (company._id === action.company._id) {
+          return Object.assign({}, company, {
+            name: action.company.name,
+            earnings: action.company.earnings,
+          });
+        }
+
+        return company;
+      }),
+    });
   case ActionTypes.DELETE_COMPANY :
     return {
       companies: state.companies.filter((company) => company._id !== action.company._id),

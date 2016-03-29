@@ -45,14 +45,37 @@ export function addCompanyRequest(company) {
   };
 }
 
-export function deletePost(company) {
+export function updateCompany(company) {
+  return {
+    type: ActionTypes.UPDATE_COMPANY,
+    company,
+  };
+}
+
+export function updateCompanyRequest(company, fields) {
+  return (dispatch) => {
+    fetch(`${baseURL}/api/updateCompany`, {
+      method: 'post',
+      body: JSON.stringify({
+        companyId: company._id,
+        name: fields.name,
+        earnings: fields.earnings,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+    }).then((res) => res.json()).then(res => dispatch(updateCompany(res.company)));
+  };
+}
+
+export function deleteCompany(company) {
   return {
     type: ActionTypes.DELETE_COMPANY,
     company,
   };
 }
 
-export function deletePostRequest(company) {
+export function deleteCompanyRequest(company) {
   return (dispatch) => {
     fetch(`${baseURL}/api/deleteCompany`, {
       method: 'post',
@@ -62,6 +85,6 @@ export function deletePostRequest(company) {
       headers: new Headers({
         'Content-Type': 'application/json',
       }),
-    }).then(() => dispatch(deletePost(company)));
+    }).then(() => dispatch(deleteCompany(company)));
   };
 }

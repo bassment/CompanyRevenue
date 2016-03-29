@@ -8,6 +8,9 @@ router.route('/getCompanies').get(CompanyController.getCompanies);
 // Add a new Company
 router.route('/addCompany').post(CompanyController.addCompany);
 
+// Update a Company
+router.route('/updateCompany').post(CompanyController.updateCompany);
+
 // Delete a Company
 router.route('/deleteCompany').post(CompanyController.deleteCompany);
 

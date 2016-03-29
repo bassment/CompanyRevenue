@@ -43,8 +43,27 @@ export function addCompany(req, res) {
   });
 }
 
+export function updateCompany(req, res) {
+  const companyId = req.body.companyId;
+  const name = req.body.name;
+  const earnings = req.body.earnings;
+
+  Company.findByIdAndUpdate(
+    companyId,
+    { name, earnings },
+    { new: true, safe: true, upsert: true },
+    (err, saved) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+
+      return res.json({ company: saved });
+    });
+}
+
 export function deleteCompany(req, res) {
   const companyId = req.body.companyId;
+
   Company.findById(companyId).exec((err, company) => {
     if (err) {
       return res.status(500).send(err);

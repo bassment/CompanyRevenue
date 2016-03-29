@@ -1,3 +1,4 @@
 export const ADD_COMPANIES = 'SHOW_COMPANIES';
 export const ADD_COMPANY = 'ADD_COMPANY';
 export const DELETE_COMPANY = 'DELETE_COMPANY';
+export const UPDATE_COMPANY = 'UPDATE_COMPANY';

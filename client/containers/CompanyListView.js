@@ -7,10 +7,16 @@ import * as Actions from '../actions/company';
 
 function CompanyListView(props) {
   const companies = props.companies.map((company, i) => (
-    <CompanyListItem company={company} key={i}
+    <CompanyListItem
+      company={company}
+      key={i}
+      onUpdate={function handleUpdate(name, earnings) {
+        props.dispatch(Actions.updateCompanyRequest(company, { name, earnings }));
+      }}
+
       onDelete={function handleDelete() {
         if (confirm('Do you want to delete this post')) { // eslint-disable-line
-          props.dispatch(Actions.deletePostRequest(company));
+          props.dispatch(Actions.deleteCompanyRequest(company));
         }
       }} />
   ));
