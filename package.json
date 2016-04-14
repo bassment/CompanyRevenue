@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "server.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node server",
+    "start": "babel-node server",
     "production": "better-npm-run build:start",
     "build": "rimraf dist && better-npm-run build",
     "eslint": "eslint .",
@@ -17,7 +17,7 @@
       }
     },
     "build:start": {
-      "command": "./node_modules/.bin/babel-node server",
+      "command": "babel-node server",
       "env": {
         "NODE_ENV": "production",
         "PORT": "3000"
@@ -37,9 +37,7 @@
     "react-redux": "^4.4.0",
     "react-router": "2.0.0-rc5",
     "redux": "^3.3.1",
-    "redux-thunk": "^1.0.3"
-  },
-  "devDependencies": {
+    "redux-thunk": "^1.0.3",
     "autoprefixer": "^6.0.3",
     "babel-cli": "^6.6.5",
     "babel-core": "^6.3.26",
